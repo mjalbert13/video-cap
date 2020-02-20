@@ -28,11 +28,16 @@ while True:
     for contour in cnts:
         if cv2.contourArea(contour) < 1000:
             continue
+        status = 1
+
         (x,y,w,h) = cv2.boundingRect(contour)
         cv2.rectangle(frame, (x,y), (x+w, y+h), (0,255,0),3)
-        status = 1
-    
+        
     statusList.append(status)
+    
+    statusList = statusList[-2:]
+
+    
     if statusList[-1] == 1 and statusList[-2] ==0:
         times.append(datetime.now())
     if statusList[-1] == 0 and statusList[-2] ==1:
